@@ -1,0 +1,12 @@
+shell_command:
+  update_github_docker_hosts: sh /config/github_docker_hosts_update.sh
+
+automation:
+  - alias: HA启动或每两小时自动更新docker中github的hosts
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: time_pattern
+        hours: "/2"
+    action:
+      - service: shell_command.update_github_docker_hosts
